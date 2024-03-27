@@ -7,9 +7,29 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Akka.Logger.log4net", "Akka
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{828A76CC-8178-4470-B20B-DA78673D91C4}"
 	ProjectSection(SolutionItems) = preProject
-		..\build.fsx = ..\build.fsx
 		..\README.md = ..\README.md
 		..\RELEASE_NOTES.md = ..\RELEASE_NOTES.md
+		..\build.ps1 = ..\build.ps1
+		..\global.json = ..\global.json
+		Directory.Build.props = Directory.Build.props
+		Directory.Packages.props = Directory.Packages.props
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{D27357E5-702C-4E85-95A1-969FDCF765A6}"
+	ProjectSection(SolutionItems) = preProject
+		..\.github\dependabot.yaml = ..\.github\dependabot.yaml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{7AD6435A-870C-4D7D-859D-9FF1C5C72C58}"
+	ProjectSection(SolutionItems) = preProject
+		..\.github\workflows\pr_validation.yaml = ..\.github\workflows\pr_validation.yaml
+		..\.github\workflows\publish_nuget.yml = ..\.github\workflows\publish_nuget.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{73437FA7-88B8-4F5E-95B4-EF09F65AF87E}"
+	ProjectSection(SolutionItems) = preProject
+		..\scripts\bumpVersion.ps1 = ..\scripts\bumpVersion.ps1
+		..\scripts\getReleaseNotes.ps1 = ..\scripts\getReleaseNotes.ps1
 	EndProjectSection
 EndProject
 Global
@@ -25,5 +45,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D27357E5-702C-4E85-95A1-969FDCF765A6} = {828A76CC-8178-4470-B20B-DA78673D91C4}
+		{7AD6435A-870C-4D7D-859D-9FF1C5C72C58} = {D27357E5-702C-4E85-95A1-969FDCF765A6}
+		{73437FA7-88B8-4F5E-95B4-EF09F65AF87E} = {828A76CC-8178-4470-B20B-DA78673D91C4}
 	EndGlobalSection
 EndGlobal

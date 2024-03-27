@@ -1,4 +1,4 @@
-#### 1.3.1 Oktober 09 2017 ####
+#### 1.3.1 October 09 2017 ####
 Support for Akka 1.3.1
 
 #### 1.3.0 August 31 2017 ####

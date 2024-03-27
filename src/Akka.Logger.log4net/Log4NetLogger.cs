@@ -1,6 +1,6 @@
 ﻿//-----------------------------------------------------------------------
 // <copyright file="Log4NetLogger.cs" company="Akka.NET Project">
-//     Copyright (C) 2013-2017 Akka.NET Contrib project <https://github.com/AkkaNetContrib>
+//     Copyright (C) 2013-2017 Akka.NET Project <https://github.com/AkkaNetContrib>
 // </copyright>
 //-----------------------------------------------------------------------
 
@@ -9,6 +9,7 @@ using Akka.Actor;
 using Akka.Event;
 using Akka.Dispatch;
 using log4net;
+using log4net.Config;
 
 namespace Akka.Logger.log4net
 {
@@ -24,7 +25,7 @@ namespace Akka.Logger.log4net
 
         private static void Log(LogEvent logEvent, Action<ILog> logStatement)
         {
-#if net45
+#if NET472
             var logger = LogManager.GetLogger(logEvent.LogClass.FullName);
 #else
             var logger = LogManager.GetLogger(logEvent.LogClass);
