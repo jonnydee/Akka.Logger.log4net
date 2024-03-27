@@ -39,7 +39,7 @@ jobs:
           ./build.ps1
 
       - name: "dotnet build"
-        run: dotnet build -c Release
+        run: dotnet build ./src/Akka.Logger.log4net.sln -c Release
 
       # .NET Framework tests can't run reliably on Linux, so we only do .NET 8
 
@@ -47,10 +47,10 @@ jobs:
         shell: bash
         run: |
           if [ "${{ matrix.os }}" = "ubuntu-latest" ]; then
-            dotnet test -c Release --framework net8.0
+            dotnet test -c Release --framework net8.0 ./src/Akka.Logger.log4net.sln
           else
-            dotnet test -c Release
+            dotnet test -c Release ./src/Akka.Logger.log4net.sln
           fi
 
       - name: "dotnet pack"
-        run: dotnet pack -c Release
+        run: dotnet pack -c Release ./src/Akka.Logger.log4net.sln

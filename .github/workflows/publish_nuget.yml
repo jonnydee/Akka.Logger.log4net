@@ -27,7 +27,7 @@ jobs:
         ./build.ps1
 
     - name: Create Packages
-      run:  dotnet pack /p:PackageVersion=${{ github.ref_name }} -c Release -o ./output
+      run:  dotnet pack /p:PackageVersion=${{ github.ref_name }} -c Release -o ./output ./src/Akka.Logger.log4net.sln
 
     - name: Push Packages
       run: dotnet nuget push "output/*.nupkg" -k ${{ secrets.NUGET_KEY }} -s https://api.nuget.org/v3/index.json
@@ -38,7 +38,7 @@ jobs:
       with:
         draft: false
         prerelease: false
-        release_name: 'Akka.Analyzers ${{ github.ref_name }}'
+        release_name: 'Akka.Logger.log4net ${{ github.ref_name }}'
         tag_name: ${{ github.ref }}
         body_path: RELEASE_NOTES.md
       env:
