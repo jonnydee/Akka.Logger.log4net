@@ -1,4 +1,10 @@
-﻿using System;
+﻿//-----------------------------------------------------------------------
+// <copyright file="Log4NetLoggingAdapterExtensions.cs" company="Akka.NET Project">
+//     Copyright (C) 2013-2017 Akka.NET Project <https://github.com/AkkaNetContrib>
+// </copyright>
+//-----------------------------------------------------------------------
+
+using System;
 using Akka.Actor;
 using Akka.Event;
 
