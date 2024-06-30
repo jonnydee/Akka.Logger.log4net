@@ -120,8 +120,7 @@ namespace Akka.Logger.log4net
         /// </summary>
         /// <param name="context">The context used to configure the logging adapter.</param>
         /// <returns>The newly created logging adapter.</returns>
-        public static ILoggingAdapter GetLogger<T>(this IActorContext context)
-            where T : class, ILoggingAdapter
+        public static ILoggingAdapter GetLogger(this IActorContext context)
         {
             if (context is null)
                 throw new ArgumentNullException(nameof(context));
@@ -129,8 +128,7 @@ namespace Akka.Logger.log4net
             return new Log4NetLoggingAdapter(context.System.EventStream, LogSource.Create(context));
         }
 
-        public static ILoggingAdapter GetLogger<T>(this ActorSystem system, object logSourceObj)
-            where T : class, ILoggingAdapter
+        public static ILoggingAdapter GetLogger(this ActorSystem system, object logSourceObj)
         {
             if (system is null)
                 throw new ArgumentNullException(nameof(system));
@@ -141,8 +139,7 @@ namespace Akka.Logger.log4net
             return new Log4NetLoggingAdapter(system.EventStream, LogSource.Create(logSourceObj, system));
         }
 
-        public static ILoggingAdapter GetLogger<T>(this ActorSystem system, string logSource, Type logType)
-            where T : class, ILoggingAdapter
+        public static ILoggingAdapter GetLogger(this ActorSystem system, string logSource, Type logType)
         {
             if (system is null)
                 throw new ArgumentNullException(nameof(system));
