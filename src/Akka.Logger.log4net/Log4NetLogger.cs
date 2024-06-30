@@ -28,22 +28,30 @@ namespace Akka.Logger.log4net
             loggingBus: Context.System.EventStream,
             logSourceObj: nameof(Log4NetLogger));
 
-        private static void Log(Level level, LogEvent logEvent)
+        /// <summary>
+        /// Gets or sets the function that will be used to get the logger.
+        /// </summary>
+        /// <remarks>
+        /// This property is solely there to allow unit tests to set a different logger factory.
+        /// </remarks>
+        internal Func<LogEvent, ILogger> GetLogger { get; set; } = GetLoggerFromLogManager;
+
+        private void Log(Level level, LogEvent logEvent)
         {
-            var logger = GetLogger(logEvent).Logger;
+            var logger = GetLogger(logEvent);
             var logEventSenderPath = Context.Sender.Path;
             var loggingEvent = CreateLoggingEvent(logger, level, logEvent, logEventSenderPath);
             logger.Log(loggingEvent);
         }
 
-        private static ILog GetLogger(LogEvent logEvent)
+        private static ILogger GetLoggerFromLogManager(LogEvent logEvent)
         {
 #if NET472
             var logger = LogManager.GetLogger(logEvent.LogClass.FullName);
 #else
             var logger = LogManager.GetLogger(logEvent.LogClass);
 #endif
-            return logger;
+            return logger.Logger;
         }
 
         internal static LoggingEvent CreateLoggingEvent(
@@ -81,16 +89,16 @@ namespace Akka.Logger.log4net
                 data: logginEventData);
         }
 
-        private static void Handle(Error logEvent)
+        private void Handle(Error logEvent)
             => Log(Level.Error, logEvent);
 
-        private static void Handle(Warning logEvent)
+        private void Handle(Warning logEvent)
             => Log(Level.Warn, logEvent);
 
-        private static void Handle(Info logEvent)
+        private void Handle(Info logEvent)
             => Log(Level.Info, logEvent);
 
-        private static void Handle(Debug logEvent)
+        private void Handle(Debug logEvent)
             => Log(Level.Debug, logEvent);
 
         /// <summary>
