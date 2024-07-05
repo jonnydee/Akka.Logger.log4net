@@ -147,21 +147,33 @@ namespace Akka.Logger.log4net
 
             #region Helper function(s)
 
-            // Get the stack frame of the caller of the method in the provided type.
+            // Get the stack frame of the caller of the method in the provided 'logClass' from
+            // the stack trace.
+            // (Note that generating a stack trace is costly and should be avoided if possible.)
             static StackFrame? GetCallerStackFrame(Type logClass)
-                => new StackTrace(fNeedFileInfo: true)
-                    .GetFrames()
-                    .FirstOrDefault(frame => GetDeclaringTypes(frame.GetMethod()).Contains(logClass));
-
-            // Get the declaring type of the method as well as all declaring types up to the root type.
-            static IEnumerable<Type> GetDeclaringTypes(MethodBase method)
             {
-                var type = method.DeclaringType;
-                while (type is not null)
+                // Get the sequence of stack frames from the 'StackTrace' object.
+                if (new StackTrace(fNeedFileInfo: true).GetFrames() is not { } frames)
+                    return null;
+
+                // Try to find the frame where the declaring type of the frame's method is the
+                // provided 'logClass'.
+                foreach (var frame in frames)
                 {
-                    yield return type;
-                    type = type.DeclaringType;
+                    // Traverse the declaring types of the method up to the root type and try to
+                    // find the 'logClass'.
+                    var type = frame.GetMethod()?.DeclaringType;
+                    while (type is not null)
+                    {
+                        // If 'true' we have found the caller.
+                        if (type == logClass)
+                            return frame;
+
+                        type = type.DeclaringType;
+                    }
                 }
+
+                return null;
             }
 
             #endregion
